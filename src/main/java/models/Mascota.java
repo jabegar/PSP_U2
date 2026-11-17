@@ -11,12 +11,13 @@ public class Mascota implements Runnable {
 	}
 	
 	public void comer() {
-		this.vecesAlimentada++;
 		System.out.println("La macota con nombre " + this.nombre + " ha comenzado a comer");
 		
 		try {
+			System.out.println("PRIORIDAD: " + Thread.currentThread().getPriority());
 			Thread.sleep(1000 * this.vecesAlimentada);
-			System.out.println("La macota con nombre " + this.nombre + " ha terminado de comer");
+			this.vecesAlimentada++;
+			System.out.println(this.vecesAlimentada + " - " + Thread.currentThread().getName() + " - La macota con nombre " + this.nombre + " ha terminado de comer");
 		} catch (InterruptedException e) {
 			System.err.println(e.getMessage());
 		}

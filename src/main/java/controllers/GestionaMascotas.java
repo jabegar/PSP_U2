@@ -1,30 +1,39 @@
 package controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import models.Mascota;
 
 public class GestionaMascotas {
 
 	public static void main(String[] args) {
-		Mascota cuidador1 = new Mascota("Lulu");
-		Mascota cuidador2 = new Mascota("Lulu");
-		Mascota cuidador3 = new Mascota("Lulu");
-		Mascota cuidador4 = new Mascota("Lulu");
-		Mascota cuidador5 = new Mascota("Lulu");
+		long t_comienzo = System.currentTimeMillis();
+		Mascota mascota = new Mascota("Lulu");
+		List<Thread> hilos = new ArrayList<Thread>();
+		for (int i = 0; i < 100; i++) {
+			
+			Thread cuidador = new Thread(mascota, "cuidador" + i);
+			
+			cuidador.setPriority(Math.round(i%10) + 1);
+			cuidador.start();
+			
+			hilos.add(cuidador);
+		}
 		
-		Thread hilo1 = new Thread(cuidador1);
-		Thread hilo2 = new Thread(cuidador2);
-		Thread hilo3 = new Thread(cuidador3);
-		Thread hilo4 = new Thread(cuidador4);
-		Thread hilo5 = new Thread(cuidador5);
 		
+		for (Thread thread : hilos) {
+			try {
+				thread.join();
+			} catch (InterruptedException e) {
+				System.out.println(e.getMessage());
+			}
+		}
+		System.out.println(mascota.getVecesAlimentadas());
 		
-		hilo1.start();
-		hilo2.start();
-		hilo3.start();
-		hilo4.start();
-		hilo5.start();
-		
-		System.out.println();
+		long t_fin = System.currentTimeMillis();
+		double tiempoTarda = t_fin - t_comienzo;
+		System.out.println(tiempoTarda + " milisegundos");
 	}
 
 }
