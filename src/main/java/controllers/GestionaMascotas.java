@@ -15,7 +15,7 @@ public class GestionaMascotas {
 			
 			Thread cuidador = new Thread(mascota, "cuidador" + i);
 			
-			cuidador.setPriority(Math.round(i%10) + 1);
+			cuidador.setPriority(Math.round(i/10) + 1);
 			cuidador.start();
 			
 			hilos.add(cuidador);
