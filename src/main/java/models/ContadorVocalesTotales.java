@@ -7,8 +7,8 @@ public class ContadorVocalesTotales {
 		this.numVocalesTotales = 0;
 	}
 	
-	public synchronized void incrementarVocales() {
-		this.numVocalesTotales++;
+	public synchronized void incrementarVocales(int total) {
+		this.numVocalesTotales += total;
 	}
 	
 	public int getNumVocalesTotales() {
