@@ -16,15 +16,17 @@ public class Bandeja {
 		while(this.platos.size() == capacidad) {
 			wait();
 		}
+		System.out.println("Cocinando " + plato);
 		this.platos.add(plato);
 		notifyAll();
 	}
 	
-	public synchronized void quitoPlato(String plato) throws InterruptedException {
+	public synchronized void quitoPlato() throws InterruptedException {
 		while(this.platos.size() == 0) {
 			wait();
 		}
-		this.platos.remove(plato);
+		String plato = this.platos.remove(0);
+		System.out.println("Se ha comido el plato " + plato);
 		notifyAll();
 	}
 }
